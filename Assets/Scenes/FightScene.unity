@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dungeon
       objectReference: {fileID: 0}
+    - target: {fileID: 7049123262035774396, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
+      propertyPath: _enemy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
 --- !u!4 &197703 stripped
@@ -238,6 +242,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53540026}
     m_Modifications:
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _enemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: RightTower
@@ -3829,6 +3837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53540026}
     m_Modifications:
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _enemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: LeftTower
@@ -4889,7 +4901,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1857370990183852637, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1857370990183852637, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
       propertyPath: m_LocalPosition.x

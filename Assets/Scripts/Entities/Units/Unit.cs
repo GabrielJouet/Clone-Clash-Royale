@@ -53,12 +53,6 @@ public class Unit : Entity
     /// </summary>
     private Vector3 _goalPosition;
 
-
-    /// <summary>
-    /// Does this unit is an enemy one?
-    /// </summary>
-    private bool _enemy;
-
     /// <summary>
     /// Does this unit can move?
     /// </summary>
@@ -89,8 +83,8 @@ public class Unit : Entity
     /// <param name="enemy">Does this unit is an enemy?</param>
     public void Initialize(Vector3 position, bool enemy)
     {
-        _enemy = enemy;
-        _nextPoint = Controller.Instance.PointController.GetBetterPoint(position, _enemy);
+        Enemy = enemy;
+        _nextPoint = Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
 
         _canMove = true;
@@ -110,7 +104,7 @@ public class Unit : Entity
 
             if ((transform.position - _goalPosition).magnitude <= 0.075f)
             {
-                _nextPoint = _enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
+                _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
                 _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
             }
         }
