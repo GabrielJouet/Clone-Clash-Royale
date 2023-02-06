@@ -4,49 +4,13 @@ using UnityEngine;
 /// Class used to handle a single unit behavior.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public class Unit : MonoBehaviour
+public class Unit : Entity
 {
-    /// <summary>
-    /// Health of this unit, set to 0 it will die.
-    /// </summary>
-    [SerializeField, Range(2, 50)]
-    private int _health;
-
-    /// <summary>
-    /// Health max of this unit, used between pooling.
-    /// </summary>
-    private int _healthMax;
-
-
     /// <summary>
     /// Speed of this unit.
     /// </summary>
     [SerializeField, Range(0.5f, 2)]
     private float _speed;
-
-    /// <summary>
-    /// Attack speed of this unit.
-    /// </summary>
-    [SerializeField, Range(0.25f, 1)]
-    private float _attackSpeed;
-
-    /// <summary>
-    /// Attack damage of this unit.
-    /// </summary>
-    [SerializeField, Range(1, 10)]
-    private int _attackDamage;
-
-    /// <summary>
-    /// Minimum range before an unit saw another unit and try to kill it.
-    /// </summary>
-    [SerializeField, Range(0.5f, 2)]
-    private float _seeRange;
-
-    /// <summary>
-    /// Minimum range before an unit can attack another.
-    /// </summary>
-    [SerializeField, Range(0.1f, 1)]
-    private float _attackRange;
 
     /// <summary>
     /// Mana cost of this unit.
