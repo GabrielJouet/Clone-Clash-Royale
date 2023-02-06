@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,12 @@ public abstract class PlayableController : MonoBehaviour
     /// </summary>
     [SerializeField]
     protected Slider _manaSlider;
+
+    /// <summary>
+    /// Mana caption used to display how much mana is available rounded up.
+    /// </summary>
+    [SerializeField]
+    protected TextMeshProUGUI _manaCaption;
 
 
     /// <summary>
@@ -56,6 +63,7 @@ public abstract class PlayableController : MonoBehaviour
     {
         Mana = Mathf.Clamp(Mana + amount, 0, 10);
         _manaSlider.value = Mana;
+        _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
     }
 
 
@@ -67,5 +75,6 @@ public abstract class PlayableController : MonoBehaviour
     {
         Mana = Mathf.Clamp(Mana - amount, 0, 10);
         _manaSlider.value = Mana;
+        _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
     }
 }
