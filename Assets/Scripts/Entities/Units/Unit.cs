@@ -42,6 +42,11 @@ public class Unit : Entity
     [SerializeField]
     private int _spawnedCount;
 
+    /// <summary>
+    /// How many units will be spawned at once?
+    /// </summary>
+    public int SpawnedCount { get => _spawnedCount; }
+
 
     /// <summary>
     /// Next point loaded.
