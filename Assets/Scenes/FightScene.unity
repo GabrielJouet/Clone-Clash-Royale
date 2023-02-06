@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: _enemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7049123262035774396, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 823789621}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
 --- !u!4 &197703 stripped
@@ -246,6 +250,10 @@ PrefabInstance:
       propertyPath: _enemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 665730410}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: RightTower
@@ -354,6 +362,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 250852361}
     m_Modifications:
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 1288654377}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: RightTower
@@ -5199,6 +5211,10 @@ PrefabInstance:
       propertyPath: _enemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 1729830882}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: LeftTower
@@ -6701,6 +6717,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dungeon
       objectReference: {fileID: 0}
+    - target: {fileID: 7049123262035774396, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 1109423174}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf05eb1728a327f4e9e24ad64644c8cd, type: 3}
 --- !u!1001 &9177211271514837170
@@ -6710,6 +6730,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 250852361}
     m_Modifications:
+    - target: {fileID: 4164304294305135388, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
+      propertyPath: _healthSlider
+      value: 
+      objectReference: {fileID: 604242409}
     - target: {fileID: 9177211271101821961, guid: 5b261b82e1182884cb9ca83d823fd320, type: 3}
       propertyPath: m_Name
       value: LeftTower

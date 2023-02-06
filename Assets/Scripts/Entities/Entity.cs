@@ -31,18 +31,6 @@ public class Entity : MonoBehaviour
     protected int _attackDamage;
 
     /// <summary>
-    /// Minimum range before an unit can attack another.
-    /// </summary>
-    [SerializeField, Range(0.1f, 1)]
-    protected float _attackRange;
-
-    /// <summary>
-    /// Minimum range before an unit saw another unit and try to kill it.
-    /// </summary>
-    [SerializeField, Range(0.5f, 2)]
-    protected float _seeRange;
-
-    /// <summary>
     /// Projectile used to attack other entities.
     /// </summary>
     [SerializeField]
