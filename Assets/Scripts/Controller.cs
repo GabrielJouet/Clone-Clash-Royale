@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class that will handle every other controllers.
 /// </summary>
-[RequireComponent(typeof(PoolController))]
+[RequireComponent(typeof(PoolController), typeof(EnemyController), typeof(PlayerController))]
 public class Controller : MonoBehaviour
 {
     /// <summary>
@@ -15,6 +15,16 @@ public class Controller : MonoBehaviour
     /// Pool Controller component.
     /// </summary>
     public PoolController PoolController { get; private set; }
+
+    /// <summary>
+    /// Player Controller component.
+    /// </summary>
+    public PlayerController PlayerController { get; private set; }
+
+    /// <summary>
+    /// Enemy Controller component.
+    /// </summary>
+    public EnemyController EnemyController { get; private set; }
 
 
 
@@ -31,5 +41,7 @@ public class Controller : MonoBehaviour
         Instance = this;
 
         PoolController = GetComponent<PoolController>();
+        PlayerController = GetComponent<PlayerController>();
+        EnemyController = GetComponent<EnemyController>();
     }
 }
