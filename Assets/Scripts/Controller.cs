@@ -4,7 +4,7 @@ using UnityEngine;
 /// Class that will handle every other controllers.
 /// </summary>
 [RequireComponent(typeof(PoolController), typeof(EnemyController), typeof(PlayerController))]
-[RequireComponent(typeof(UnitController))]
+[RequireComponent(typeof(UnitController), typeof(PointController))]
 public class Controller : MonoBehaviour
 {
     /// <summary>
@@ -32,6 +32,11 @@ public class Controller : MonoBehaviour
     /// </summary>
     public UnitController UnitController { get; private set; }
 
+    /// <summary>
+    /// Point Controller component.
+    /// </summary>
+    public PointController PointController { get; private set; }
+
 
 
     /// <summary>
@@ -50,5 +55,6 @@ public class Controller : MonoBehaviour
         PlayerController = GetComponent<PlayerController>();
         EnemyController = GetComponent<EnemyController>();
         UnitController = GetComponent<UnitController>();
+        PointController = GetComponent<PointController>();
     }
 }
