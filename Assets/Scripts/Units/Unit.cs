@@ -54,6 +54,11 @@ public class Unit : MonoBehaviour
     [SerializeField, Range(1, 10)]
     private int _manaCost;
 
+    /// <summary>
+    /// Mana cost of this unit.
+    /// </summary>
+    public int ManaCost { get => _manaCost; }
+
 
     /// <summary>
     /// Does this unit is flying?
@@ -110,7 +115,6 @@ public class Unit : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody>();
         _healthMax = _health;
-        _enemy = false;
     }
 
 
@@ -118,8 +122,10 @@ public class Unit : MonoBehaviour
     /// Method called to initialized an unit.
     /// </summary>
     /// <param name="position">New position of this unit</param>
-    public void Initialize(Vector3 position)
+    /// <param name="enemy">Does this unit is an enemy?</param>
+    public void Initialize(Vector3 position, bool enemy)
     {
+        _enemy = enemy;
         _nextPoint = Controller.Instance.PointController.GetBetterPoint(position, _enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
 

@@ -10,10 +10,10 @@ public class UnitController : MonoBehaviour
     /// All units in the game.
     /// </summary>
     [SerializeField]
-    private List<GameObject> _units;
+    private List<Unit> _units;
 
     /// <summary>
     /// All units in the game.
     /// </summary>
-    public List<GameObject> Units { get => _units; }
+    public List<Unit> Units { get => _units; }
 }

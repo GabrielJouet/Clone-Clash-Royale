@@ -36,7 +36,7 @@ public abstract class PlayableController : MonoBehaviour
     /// <summary>
     /// Start method, called at initialization after Awake.
     /// </summary>
-    protected void Start()
+    protected virtual void Start()
     {
         StartCoroutine(ChargeUpMana());
     }
