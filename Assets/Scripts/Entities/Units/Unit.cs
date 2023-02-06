@@ -69,10 +69,11 @@ public class Unit : Entity
     /// <summary>
     /// Awake method, called at initialization before Start.
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _rigidBody = GetComponent<Rigidbody>();
-        _healthMax = _health;
     }
 
 

@@ -68,6 +68,15 @@ public class Entity : MonoBehaviour
 
 
     /// <summary>
+    /// Awake method, called at initialization before Start.
+    /// </summary>
+    protected virtual void Awake()
+    {
+        _healthMax = _health;
+    }
+
+
+    /// <summary>
     /// Method called to add an unit when too near.
     /// </summary>
     /// <param name="unit">The new unit added</param>
@@ -124,7 +133,7 @@ public class Entity : MonoBehaviour
     /// Method called when the entity is attacked.
     /// </summary>
     /// <param name="amount">The amount of damage dealt</param>
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         _health = Mathf.Clamp(_health - amount, 0, _healthMax);
 
@@ -136,7 +145,7 @@ public class Entity : MonoBehaviour
     /// <summary>
     /// Method called when the entity die.
     /// </summary>
-    protected void Die()
+    protected virtual void Die()
     {
         Controller.Instance.PoolController.In(gameObject);
     }
