@@ -65,4 +65,10 @@ public class Unit : MonoBehaviour
     /// </summary>
     [SerializeField]
     private bool _ignoreOponents;
+
+    /// <summary>
+    /// How many units will be spawned at once?
+    /// </summary>
+    [SerializeField]
+    private int _spawnedCount;
 }

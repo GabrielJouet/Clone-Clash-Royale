@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 612203125160061962}
   - component: {fileID: 5931234390256999025}
   m_Layer: 0
-  m_Name: BoulderUnit
+  m_Name: Rats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed948e7a636e7d54ab63f5cd55821905, type: 2}
+  - {fileID: 2100000, guid: 7c3056796d1ca1d478559c5aa1b0cde1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,12 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febb8fe59bf2ad04b871e5d159f80c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 45
-  _speed: 0.705
-  _attackSpeed: 0.25
-  _attackDamage: 8
+  _health: 8
+  _speed: 2
+  _attackSpeed: 1
+  _attackDamage: 2
   _seeRange: 1
-  _attackRange: 0.5
-  _manaCost: 6
+  _attackRange: 0.25
+  _manaCost: 2
   _flying: 0
-  _ignoreOponents: 1
+  _ignoreOponents: 0
+  _spawnedCount: 1
