@@ -96,7 +96,7 @@ public class Unit : Entity
     {
         Enemy = enemy;
 
-        _nextPoint = _ignoreOponents && _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
+        _nextPoint = _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
 
         _canMove = true;
