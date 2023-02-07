@@ -29,6 +29,7 @@ public class EnemyController : PlayableController
         _units = Controller.Instance.UnitController.Units;
         _nextUnit = _units[Random.Range(0, _units.Count)];
 
+        _deck.Initialize(Controller.Instance.UnitController.Units, true);
         StartCoroutine(SpawnUnit());
     }
 

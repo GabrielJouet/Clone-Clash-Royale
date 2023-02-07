@@ -59,6 +59,15 @@ public abstract class PlayableController : MonoBehaviour
     public Tower Dungeon { get => _dungeon; }
 
 
+    [Header("Deck")]
+
+    /// <summary>
+    /// Deck used by this player.
+    /// </summary>
+    [SerializeField]
+    protected Deck _deck;
+
+
     /// <summary>
     /// How much the player / enemy has mana right now?
     /// </summary>
