@@ -24,7 +24,7 @@ public class RangeCollider : MonoBehaviour
     /// <param name="other">The item triggered</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Entity entity) || other.transform.parent.TryGetComponent(out entity))
+        if (other.TryGetComponent(out Entity entity))
         {
             if (_attack)
                 _parentEntity.AddUnitAttacked(entity);
@@ -40,7 +40,7 @@ public class RangeCollider : MonoBehaviour
     /// <param name="other">The item triggered</param>
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out Entity entity) || other.transform.parent.TryGetComponent(out entity))
+        if (other.TryGetComponent(out Entity entity))
         {
             if (_attack)
                 _parentEntity.RemoveUnitAttacked(entity);
