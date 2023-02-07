@@ -167,14 +167,18 @@ public class Unit : Entity
     /// <param name="entity">The new entity added</param>
     public override void AddUnitAttacked(Entity entity)
     {
-        base.AddUnitAttacked(entity);
-
-        if (_targets.Count > 0)
+        if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
         {
-            if (!_attackedUnit)
+            if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_targets.Contains(entity))
+                _targets.Add(entity);
+
+            if (_targets.Count > 0)
             {
-                _attackedUnit = entity;
-                StartCoroutine(Attack());
+                if (!_attackedUnit)
+                {
+                    _attackedUnit = entity;
+                    StartCoroutine(Attack());
+                }
             }
         }
     }
