@@ -76,7 +76,7 @@ public class Card : MonoBehaviour
     {
         if (!_activated)
         {
-            if (manaValue > Unit.ManaCost)
+            if (manaValue >= Unit.ManaCost)
                 SetAvailable();
             else
                 SetUnAvailable();
