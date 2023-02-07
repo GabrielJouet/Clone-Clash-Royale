@@ -64,9 +64,9 @@ public class Projectile : MonoBehaviour
     /// <param name="other">The other object collded</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (_enemy && other.TryGetComponent(out Entity entity) && !entity.Enemy)
+        if (_enemy && other.TryGetComponent(out Entity entity) && !entity.Enemy && entity == _targetedEntity)
             AttackEntity(entity);
-        else if (!_enemy && other.TryGetComponent(out Entity enemyEntity) && enemyEntity.Enemy)
+        else if (!_enemy && other.TryGetComponent(out Entity enemyEntity) && enemyEntity.Enemy && enemyEntity == _targetedEntity)
             AttackEntity(enemyEntity);
     }
 
