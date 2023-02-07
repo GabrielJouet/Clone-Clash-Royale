@@ -133,11 +133,11 @@ public abstract class PlayableController : MonoBehaviour
     /// </summary>
     /// <param name="unit">Unit spawned</param>
     /// <param name="position">Position of the new unit</param>
-    /// <param name="random">Does a bit of random is applied to position?</param>
-    protected void SpawnUnit(Unit unit, Vector3 position, bool random)
+    /// <param name="enemy">Does this unit is an enemy?</param>
+    protected void SpawnUnit(Unit unit, Vector3 position, bool enemy)
     {
         for (int i = 0; i < unit.SpawnedCount; i++)
-            Controller.Instance.PoolController.Out(unit.gameObject).GetComponent<Unit>().Initialize(position + (random ? new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)) : Vector3.zero ), random);
+            Controller.Instance.PoolController.Out(unit.gameObject).GetComponent<Unit>().Initialize(position + (unit.SpawnedCount > 1 ? new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)) : Vector3.zero ), enemy);
 
         RemoveMana(unit.ManaCost);
     }
