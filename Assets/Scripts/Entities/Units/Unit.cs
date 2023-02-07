@@ -193,6 +193,7 @@ public class Unit : Entity
 
             if (_targets.Count > 0 && !_attackedUnit)
             {
+                StopAllCoroutines();
                 _attackedUnit = FindNearestUnit(_targets);
                 StartCoroutine(Attack());
             }
