@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,22 +62,20 @@ public class Tower : Entity
     /// </summary>
     protected override void Die()
     {
-        base.Die();
-
-        Destroy(_healthSlider);
+        Destroy(_healthSlider.gameObject);
+        Destroy(gameObject);
     }
 
 
     /// <summary>
-    /// Method called to add an unit when too near.
+    /// Method called to add an entity when too near to attack.
     /// </summary>
-    /// <param name="unit">The new unit added</param>
-    /// <param name="attack">Does the unit is near enough to be attacked?</param>
-    public override void AddUnit(Unit unit, bool attack)
+    /// <param name="entity">The new entity added</param>
+    public override void AddUnitAttacked(Entity entity)
     {
-        base.AddUnit(unit, attack);
+        base.AddUnitAttacked(entity);
 
-        if (!_isAttacking)
+        if (_targets.Count > 0 && !_isAttacking)
             StartCoroutine(AttackNearestEnemy());
     }
 
@@ -103,29 +100,5 @@ public class Tower : Entity
         }
 
         _isAttacking = false;
-    }
-
-
-    /// <summary>
-    /// Method called to remote already dead units inside the stack.
-    /// </summary>
-    private void RemoveDisactivatedUnits()
-    {
-        List<Unit> unitsToRemove = new List<Unit>();
-        foreach (Unit unit in _targets)
-            if (!unit.gameObject.activeSelf)
-                unitsToRemove.Add(unit);
-
-        foreach(Unit unitToRemove in unitsToRemove)
-            _targets.Remove(unitToRemove);
-
-        unitsToRemove.Clear();
-
-        foreach (Unit unit in _potentialTargets)
-            if (!unit.gameObject.activeSelf)
-                unitsToRemove.Add(unit);
-
-        foreach (Unit unitToRemove in unitsToRemove)
-            _potentialTargets.Remove(unitToRemove);
     }
 }

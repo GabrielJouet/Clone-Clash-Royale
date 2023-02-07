@@ -77,7 +77,7 @@ public class PointController : MonoBehaviour
     /// <returns>Returns the nearest tower in a way point format</returns>
     public Point GetNearestTower(Vector3 position, bool enemy)
     {
-        PlayableController controller = enemy ? (PlayableController)Controller.Instance.EnemyController : Controller.Instance.PlayerController;
+        PlayableController controller = enemy ? (PlayableController)Controller.Instance.PlayerController : Controller.Instance.EnemyController;
 
         return position.x <= 0 ? controller.RightTower.Waypoint : controller.LeftTower.Waypoint;
     }

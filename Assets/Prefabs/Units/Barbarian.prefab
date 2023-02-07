@@ -200,8 +200,8 @@ Rigidbody:
   m_GameObject: {fileID: 5931234390256999029}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -236,9 +236,7 @@ MonoBehaviour:
   _health: 20
   _attackSpeed: 0.55
   _attackDamage: 4
-  _attackRange: 0.45
-  _seeRange: 1
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 0.8
   _manaCost: 3
   _flying: 0

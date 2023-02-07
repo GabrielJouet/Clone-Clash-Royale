@@ -38,14 +38,14 @@ public class Entity : MonoBehaviour
 
 
     /// <summary>
-    /// All unit within the seeing zone.
+    /// All entities within the seeing zone.
     /// </summary>
-    protected List<Unit> _potentialTargets = new List<Unit>();
+    protected List<Entity> _potentialTargets = new List<Entity>();
 
     /// <summary>
-    /// All unit within the attacking zone.
+    /// All entities within the attacking zone.
     /// </summary>
-    protected List<Unit> _targets = new List<Unit>();
+    protected List<Entity> _targets = new List<Entity>();
 
 
     /// <summary>
@@ -65,55 +65,92 @@ public class Entity : MonoBehaviour
 
 
     /// <summary>
-    /// Method called to add an unit when too near.
+    /// Method called to add an entity when too near.
     /// </summary>
-    /// <param name="unit">The new unit added</param>
-    /// <param name="attack">Does the unit is near enough to be attacked?</param>
-    public virtual void AddUnit(Unit unit, bool attack)
+    /// <param name="entity">The new entity added</param>
+    public virtual void AddUnitSeen(Entity entity)
     {
-        if (Enemy && !unit.Enemy || !Enemy && unit.Enemy)
-        {
-            if (attack && !_targets.Contains(unit))
-                _targets.Add(unit);
-            else if (!attack && !_potentialTargets.Contains(unit))
-                _potentialTargets.Add(unit);
-        }
+        if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_potentialTargets.Contains(entity))
+            _potentialTargets.Add(entity);
     }
 
 
     /// <summary>
-    /// Method called to remove an unit when too far.
+    /// Method called to add an entity when too near to attack.
     /// </summary>
-    /// <param name="unit">The new unit added</param>
-    /// <param name="attack">Does the unit is near enough to be attacked?</param>
-    public void RemoveUnit(Unit unit, bool attack)
+    /// <param name="entity">The new entity added</param>
+    public virtual void AddUnitAttacked(Entity entity)
     {
-        if (attack && _targets.Contains(unit))
-            _targets.Remove(unit);
-        else if (!attack && _potentialTargets.Contains(unit))
-            _potentialTargets.Remove(unit);
+        if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_targets.Contains(entity))
+            _targets.Add(entity);
     }
 
 
     /// <summary>
-    /// Method called to find the nearest unit based on the list entered.
+    /// Method called to remove an entity when too far.
     /// </summary>
-    /// <param name="targets">The targeted units</param>
-    /// <returns>The nearest unit</returns>
-    protected Unit FindNearestUnit(List<Unit> targets)
+    /// <param name="entity">The new entity added</param>
+    public virtual void RemoveUnitSeen(Entity entity)
     {
-        Unit nearestUnit = null;
+        if (_potentialTargets.Contains(entity))
+            _potentialTargets.Remove(entity);
+    }
+
+
+    /// <summary>
+    /// Method called to remove an entity when too far to attack.
+    /// </summary>
+    /// <param name="entity">The new entity added</param>
+    public virtual void RemoveUnitAttacked(Entity entity)
+    {
+        if (_targets.Contains(entity))
+            _targets.Remove(entity);
+    }
+
+
+    /// <summary>
+    /// Method called to find the nearest entity based on the list entered.
+    /// </summary>
+    /// <param name="targets">The targeted entities</param>
+    /// <returns>The nearest entity</returns>
+    protected Entity FindNearestUnit(List<Entity> targets)
+    {
+        Entity nearestEntity = null;
         float minDistance = Mathf.Infinity;
-        foreach (Unit unit in targets)
+        foreach (Entity entity in targets)
         {
-            if ((unit.transform.position - transform.position).magnitude < minDistance)
+            if ((entity.transform.position - transform.position).magnitude < minDistance)
             {
-                minDistance = (unit.transform.position - transform.position).magnitude;
-                nearestUnit = unit;
+                minDistance = (entity.transform.position - transform.position).magnitude;
+                nearestEntity = entity;
             }
         }
 
-        return nearestUnit;
+        return nearestEntity;
+    }
+
+
+    /// <summary>
+    /// Method called to remote already dead units inside the stack.
+    /// </summary>
+    protected void RemoveDisactivatedUnits()
+    {
+        List<Entity> unitsToRemove = new List<Entity>();
+        foreach (Entity unit in _targets)
+            if (unit || !unit.gameObject.activeSelf)
+                unitsToRemove.Add(unit);
+
+        foreach (Entity unitToRemove in unitsToRemove)
+            _targets.Remove(unitToRemove);
+
+        unitsToRemove.Clear();
+
+        foreach (Entity unit in _potentialTargets)
+            if (unit || !unit.gameObject.activeSelf)
+                unitsToRemove.Add(unit);
+
+        foreach (Entity unitToRemove in unitsToRemove)
+            _potentialTargets.Remove(unitToRemove);
     }
 
 
