@@ -4773,6 +4773,7 @@ MonoBehaviour:
   _rightTower: {fileID: 39676787}
   _dungeon: {fileID: 1857370990093458609}
   _deck: {fileID: 642588929}
+  _spawnZone: {fileID: 787170986}
 --- !u!114 &963194233
 MonoBehaviour:
   m_ObjectHideFlags: 0
