@@ -79,6 +79,13 @@ public class PointController : MonoBehaviour
     {
         PlayableController controller = enemy ? (PlayableController)Controller.Instance.PlayerController : Controller.Instance.EnemyController;
 
-        return position.x <= 0 ? controller.RightTower.Waypoint : controller.LeftTower.Waypoint;
+        if (controller.RightTower && controller.LeftTower)
+            return position.x > 0 ? controller.RightTower.Waypoint : controller.LeftTower.Waypoint;
+        else if (controller.RightTower)
+            return controller.RightTower.Waypoint;
+        else if (controller.LeftTower)
+            return controller.LeftTower.Waypoint;
+        else
+            return controller.Dungeon.Waypoint;
     }
 }

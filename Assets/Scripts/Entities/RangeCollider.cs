@@ -18,6 +18,7 @@ public class RangeCollider : MonoBehaviour
     private bool _attack;
 
 
+
     /// <summary>
     /// Method called when a trigger is made.
     /// </summary>

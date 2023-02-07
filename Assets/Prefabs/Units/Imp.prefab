@@ -106,8 +106,8 @@ Rigidbody:
   m_GameObject: {fileID: 5931234390256999029}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.5
-  m_AngularDrag: 0.5
+  m_Drag: 5
+  m_AngularDrag: 5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -126,7 +126,7 @@ CapsuleCollider:
   m_Radius: 0.25
   m_Height: 0.9
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5931234390256999025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 10
-  _attackSpeed: 0.7
+  _attackSpeed: 0.75
   _attackDamage: 1
   _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 1.25
@@ -174,7 +174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6071490079077589267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.45, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

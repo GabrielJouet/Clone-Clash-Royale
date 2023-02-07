@@ -58,16 +58,28 @@ public class Unit : Entity
     /// Goal position of this unit.
     /// </summary>
     private Vector3 _goalPosition;
+    
 
+    /// <summary>
+    /// Goal unit for this unit (as a movement base)
+    /// </summary>
     private Entity _goalUnit;
 
+    /// <summary>
+    /// Goal unit for this unit (as a combat base)
+    /// </summary>
     private Entity _attackedUnit;
+
 
     /// <summary>
     /// Does this unit can move?
     /// </summary>
     private bool _canMove = false;
 
+    /// <summary>
+    /// Does this unit is already attacking?
+    /// </summary>
+    private bool _isAttacking = false;
 
     /// <summary>
     /// RigidBody component.
@@ -94,9 +106,16 @@ public class Unit : Entity
     /// <param name="enemy">Does this unit is an enemy?</param>
     public void Initialize(Vector3 position, bool enemy)
     {
-        Enemy = enemy;
+        StopAllCoroutines();
 
-        _nextPoint = _ignoreOponents && _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
+        _targets.Clear();
+        _potentialTargets.Clear();
+        Enemy = enemy;
+        _attackedUnit = null;
+        _goalUnit = null;
+        _isAttacking = false;
+
+        _nextPoint = _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
 
         _canMove = true;
@@ -112,21 +131,23 @@ public class Unit : Entity
     {
         if (_canMove && !_attackedUnit)
         {
-            if (_goalUnit)
+            _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalUnit ? _goalUnit.transform.position : _goalPosition, Time.deltaTime * _speed));
+
+            if (!_goalUnit)
             {
-                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalUnit.transform.position, Time.deltaTime * _speed));
-            }
-            else
-            {
-                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalPosition, Time.deltaTime * _speed));
-                
-                if ((transform.position - _goalPosition).magnitude <= 0.075f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
+                if ((transform.position - _goalPosition).magnitude <= 0.2f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
                 {
                     _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
                     _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
                 }
             }
+
+            if (_goalUnit && !_goalUnit.gameObject.activeSelf)
+                RemoveUnitSeen(_goalUnit);
         }
+
+        if (_attackedUnit && !_attackedUnit.gameObject.activeSelf)
+            RemoveUnitAttacked(_attackedUnit);
 
         transform.position = _rigidBody.position;
     }
@@ -137,6 +158,8 @@ public class Unit : Entity
     /// </summary>
     private IEnumerator Attack()
     {
+        _isAttacking = true;
+
         do
         {
             yield return new WaitForSeconds(_attackSpeed);
@@ -145,6 +168,8 @@ public class Unit : Entity
             Controller.Instance.PoolController.Out(_projectile).GetComponent<Projectile>().Initialize(Enemy, _attackedUnit, _attackDamage, transform.position);
         }
         while (_attackedUnit && _attackedUnit.gameObject.activeSelf);
+
+        _isAttacking = false;
     }
 
 
@@ -154,10 +179,14 @@ public class Unit : Entity
     /// <param name="entity">The new entity added</param>
     public override void AddUnitSeen(Entity entity)
     {
-        base.AddUnitSeen(entity);
+        if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
+        {
+            if (((Enemy && !entity.Enemy) || (!Enemy && entity.Enemy)) && !_potentialTargets.Contains(entity))
+                _potentialTargets.Add(entity);
 
-        if (_potentialTargets.Count > 0 && !_goalUnit)
-            _goalUnit = entity;
+            if (_potentialTargets.Count > 0 && !_goalUnit)
+                _goalUnit = FindNearestUnit(_potentialTargets);
+        }
     }
 
 
@@ -167,14 +196,18 @@ public class Unit : Entity
     /// <param name="entity">The new entity added</param>
     public override void AddUnitAttacked(Entity entity)
     {
-        base.AddUnitAttacked(entity);
-
-        if (_targets.Count > 0)
+        if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
         {
-            if (!_attackedUnit)
+            if (((Enemy && !entity.Enemy) || (!Enemy && entity.Enemy)) && !_targets.Contains(entity))
+                _targets.Add(entity);
+
+            if (_targets.Count > 0)
             {
-                _attackedUnit = entity;
-                StartCoroutine(Attack());
+                if (!_attackedUnit && !_isAttacking)
+                {
+                    _attackedUnit = entity;
+                    StartCoroutine(Attack());
+                }
             }
         }
     }
@@ -208,6 +241,8 @@ public class Unit : Entity
 
         if (_attackedUnit == entity)
         {
+            _isAttacking = false;
+
             if (_targets.Count > 0)
                 _attackedUnit = FindNearestUnit(_targets);
             else
