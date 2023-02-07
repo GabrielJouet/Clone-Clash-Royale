@@ -68,6 +68,7 @@ public class Unit : Entity
     /// </summary>
     private bool _canMove = false;
 
+    private bool _isAttacking = false;
 
     /// <summary>
     /// RigidBody component.
@@ -139,6 +140,8 @@ public class Unit : Entity
     /// </summary>
     private IEnumerator Attack()
     {
+        _isAttacking = true;
+
         do
         {
             yield return new WaitForSeconds(_attackSpeed);
@@ -150,6 +153,7 @@ public class Unit : Entity
 
         RemoveUnitSeen(_attackedUnit);
         RemoveUnitAttacked(_attackedUnit);
+        _isAttacking = false;
     }
 
 
@@ -159,10 +163,14 @@ public class Unit : Entity
     /// <param name="entity">The new entity added</param>
     public override void AddUnitSeen(Entity entity)
     {
-        base.AddUnitSeen(entity);
+        if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
+        {
+            if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_potentialTargets.Contains(entity))
+                _potentialTargets.Add(entity);
 
-        if (_potentialTargets.Count > 0 && !_goalUnit)
-            _goalUnit = entity;
+            if (_potentialTargets.Count > 0 && !_goalUnit)
+                _goalUnit = entity;
+        }
     }
 
 
@@ -179,7 +187,7 @@ public class Unit : Entity
 
             if (_targets.Count > 0)
             {
-                if (!_attackedUnit)
+                if (!_attackedUnit && !_isAttacking)
                 {
                     _attackedUnit = entity;
                     StartCoroutine(Attack());
