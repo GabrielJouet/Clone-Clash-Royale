@@ -111,7 +111,7 @@ public class Card : MonoBehaviour
     {
         if (!_activated)
         {
-            _activated = false;
+            _activated = true;
             Controller.Instance.PlayerController.LoadUnit(Unit);
             _background.color = Color.green;
         }
