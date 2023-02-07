@@ -29,6 +29,9 @@ public abstract class PlayableController : MonoBehaviour
     [SerializeField]
     protected Tower _leftTower;
 
+    /// <summary>
+    /// Left tower of this player.
+    /// </summary>
     public Tower LeftTower { get => _leftTower; }
 
 
@@ -38,6 +41,9 @@ public abstract class PlayableController : MonoBehaviour
     [SerializeField]
     protected Tower _rightTower;
 
+    /// <summary>
+    /// Right tower of this player.
+    /// </summary>
     public Tower RightTower { get => _rightTower; }
 
 
@@ -47,6 +53,9 @@ public abstract class PlayableController : MonoBehaviour
     [SerializeField]
     protected Tower _dungeon;
 
+    /// <summary>
+    /// Dungeon of this player.
+    /// </summary>
     public Tower Dungeon { get => _dungeon; }
 
 
