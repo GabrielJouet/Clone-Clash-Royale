@@ -59,6 +59,15 @@ public abstract class PlayableController : MonoBehaviour
     public Tower Dungeon { get => _dungeon; }
 
 
+    [Header("Deck")]
+
+    /// <summary>
+    /// Deck used by this player.
+    /// </summary>
+    [SerializeField]
+    protected Deck _deck;
+
+
     /// <summary>
     /// How much the player / enemy has mana right now?
     /// </summary>
@@ -102,6 +111,8 @@ public abstract class PlayableController : MonoBehaviour
         Mana = Mathf.Clamp(Mana + amount, 0, 10);
         _manaSlider.value = Mana;
         _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
+
+        _deck.UpdateManaValue(Mathf.FloorToInt(Mana));
     }
 
 
@@ -114,5 +125,20 @@ public abstract class PlayableController : MonoBehaviour
         Mana = Mathf.Clamp(Mana - amount, 0, 10);
         _manaSlider.value = Mana;
         _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
+    }
+
+
+    /// <summary>
+    /// Method called to spawn unit based on unit choice and position.
+    /// </summary>
+    /// <param name="unit">Unit spawned</param>
+    /// <param name="position">Position of the new unit</param>
+    /// <param name="enemy">Does this unit is an enemy?</param>
+    protected void SpawnUnit(Unit unit, Vector3 position, bool enemy)
+    {
+        for (int i = 0; i < unit.SpawnedCount; i++)
+            Controller.Instance.PoolController.Out(unit.gameObject).GetComponent<Unit>().Initialize(position + (unit.SpawnedCount > 1 ? new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)) : Vector3.zero ), enemy);
+
+        RemoveMana(unit.ManaCost);
     }
 }
