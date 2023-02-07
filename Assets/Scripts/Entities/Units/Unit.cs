@@ -58,16 +58,27 @@ public class Unit : Entity
     /// Goal position of this unit.
     /// </summary>
     private Vector3 _goalPosition;
+    
 
+    /// <summary>
+    /// Goal unit for this unit (as a movement base)
+    /// </summary>
     private Entity _goalUnit;
 
+    /// <summary>
+    /// Goal unit for this unit (as a combat base)
+    /// </summary>
     private Entity _attackedUnit;
+
 
     /// <summary>
     /// Does this unit can move?
     /// </summary>
     private bool _canMove = false;
 
+    /// <summary>
+    /// Does this unit is already attacking?
+    /// </summary>
     private bool _isAttacking = false;
 
     /// <summary>
@@ -95,9 +106,14 @@ public class Unit : Entity
     /// <param name="enemy">Does this unit is an enemy?</param>
     public void Initialize(Vector3 position, bool enemy)
     {
+        StopAllCoroutines();
+
+        _targets.Clear();
+        _potentialTargets.Clear();
         Enemy = enemy;
         _attackedUnit = null;
         _goalUnit = null;
+        _isAttacking = false;
 
         _nextPoint = _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
@@ -129,7 +145,13 @@ public class Unit : Entity
                     _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
                 }
             }
+
+            if (!_goalUnit || !_goalUnit.gameObject.activeSelf)
+                _goalUnit = null;
         }
+
+        if (!_attackedUnit || !_attackedUnit.gameObject.activeSelf)
+            _attackedUnit = null;
 
         transform.position = _rigidBody.position;
     }
@@ -165,11 +187,11 @@ public class Unit : Entity
     {
         if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
         {
-            if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_potentialTargets.Contains(entity))
+            if (((Enemy && !entity.Enemy) || (!Enemy && entity.Enemy)) && !_potentialTargets.Contains(entity))
                 _potentialTargets.Add(entity);
 
             if (_potentialTargets.Count > 0 && !_goalUnit)
-                _goalUnit = entity;
+                _goalUnit = FindNearestUnit(_potentialTargets);
         }
     }
 
@@ -182,7 +204,7 @@ public class Unit : Entity
     {
         if (!(_ignoreOponents && entity.TryGetComponent(out Unit unit)))
         {
-            if ((Enemy && !entity.Enemy || !Enemy && entity.Enemy) && !_targets.Contains(entity))
+            if (((Enemy && !entity.Enemy) || (!Enemy && entity.Enemy)) && !_targets.Contains(entity))
                 _targets.Add(entity);
 
             if (_targets.Count > 0)
@@ -225,6 +247,8 @@ public class Unit : Entity
 
         if (_attackedUnit == entity)
         {
+            _isAttacking = false;
+
             if (_targets.Count > 0)
                 _attackedUnit = FindNearestUnit(_targets);
             else
