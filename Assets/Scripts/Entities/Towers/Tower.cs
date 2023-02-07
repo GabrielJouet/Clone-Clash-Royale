@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,18 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Point))]
 public class Tower : Entity
 {
+    /// <summary>
+    /// Does this tower is the last one of the line?
+    /// </summary>
+    [SerializeField]
+    private bool _dungeon;
+
+    /// <summary>
+    /// Win text component.
+    /// </summary>
+    [SerializeField]
+    private TextMeshProUGUI _winText;
+
     /// <summary>
     /// Health slider, used to display the health remaining.
     /// </summary>
@@ -64,6 +77,13 @@ public class Tower : Entity
     {
         Destroy(_healthSlider.gameObject);
         Destroy(gameObject);
+
+        if (_dungeon)
+        {
+            _winText.gameObject.SetActive(true);
+            _winText.text = _enemy ? "You win!" : "The enemy wins";
+            Time.timeScale = 0;
+        }
     }
 
 

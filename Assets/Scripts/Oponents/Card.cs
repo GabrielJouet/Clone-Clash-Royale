@@ -47,6 +47,8 @@ public class Card : MonoBehaviour
 
     private bool _activated = false;
 
+    private int _mana = 0;
+
 
 
     /// <summary>
@@ -69,11 +71,27 @@ public class Card : MonoBehaviour
 
 
     /// <summary>
+    /// Method called to set an unit to a card.
+    /// </summary>
+    /// <param name="unit">The new unit</param>
+    /// <param name="mana">The mana value</param>
+    public void SetUnit(Unit unit, int mana)
+    {
+        Unit = unit;
+        _name.text = unit.name;
+        _cost.text = unit.ManaCost.ToString();
+
+        UpdateManaValue(mana);
+    }
+
+
+    /// <summary>
     /// Method called by controllers to update the mana value displayed.
     /// </summary>
     /// <param name="manaValue">The new mana value</param>
     public void UpdateManaValue(int manaValue)
     {
+        _mana = manaValue;
         if (!_activated)
         {
             if (manaValue >= Unit.ManaCost)
@@ -109,6 +127,7 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetSelected()
     {
+        transform.parent.GetComponent<Deck>().UnSelect();
         if (!_activated)
         {
             _activated = true;
@@ -126,11 +145,10 @@ public class Card : MonoBehaviour
     /// <summary>
     /// Method called to set a the card as selected.
     /// </summary>
-    /// <param name="mana">Mana value to reset card</param>
     public void SetUnSelected()
     {
         _activated = false;
-        _background.color = _button.enabled ? Color.white : Color.gray;
+        UpdateManaValue(_mana);
     }
 
 
