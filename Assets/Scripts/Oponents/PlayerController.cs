@@ -56,8 +56,9 @@ public class PlayerController : PlayableController
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit[] hits = Physics.RaycastAll(ray);
 
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                foreach(RaycastHit hit in hits)
                 {
                     if (hit.transform.gameObject.name.Equals("SpawnZone"))
                     {
