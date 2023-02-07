@@ -49,4 +49,14 @@ public class Deck : MonoBehaviour
 
         _cards.Find((x) => x.Unit == unit).SetWanted();
     }
+
+
+    /// <summary>
+    /// Method called to unselect every card.
+    /// </summary>
+    public void UnSelect()
+    {
+        for (int i = 0; i < _cards.Count; i++)
+            _cards[i].SetUnSelected();
+    }
 }

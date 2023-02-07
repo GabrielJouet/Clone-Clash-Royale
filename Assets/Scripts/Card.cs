@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Class used to handle a single card behavior.
 /// </summary>
+[RequireComponent(typeof(Image), typeof(Button))]
 public class Card : MonoBehaviour
 {
     /// <summary>
@@ -38,29 +39,32 @@ public class Card : MonoBehaviour
     private Image _background;
 
     /// <summary>
-    /// Does this card is actively used by player?
+    /// Button component shortcut.
     /// </summary>
-    private bool _active = false;
+    private Button _button;
 
-    /// <summary>
-    /// Can the card be interacted at all?
-    /// </summary>
     private bool _canBeInteracted = false;
+
+    private bool _activated = false;
+
 
 
     /// <summary>
     /// Method called to initialize a card based on unit and parameters.
     /// </summary>
     /// <param name="unit">Actual unit that will be passed to this card</param>
-    /// <param name="active">Does the card can be activated?</param>
-    public void Initialize(Unit unit, bool active)
+    /// <param name="enemy">Does the card can be activated?</param>
+    public void Initialize(Unit unit, bool enemy)
     {
         _background = GetComponent<Image>();
+        _button = GetComponent<Button>();
+
         Unit = unit;
         _name.text = unit.name;
         _cost.text = unit.ManaCost.ToString();
 
-        _canBeInteracted = active;
+        _canBeInteracted = !enemy;
+        _button.enabled = !enemy;
     }
 
 
@@ -70,7 +74,7 @@ public class Card : MonoBehaviour
     /// <param name="manaValue">The new mana value</param>
     public void UpdateManaValue(int manaValue)
     {
-        if (!_active)
+        if (!_activated)
         {
             if (manaValue > Unit.ManaCost)
                 SetAvailable();
@@ -86,6 +90,7 @@ public class Card : MonoBehaviour
     public void SetAvailable()
     {
         _background.color = Color.white;
+        _button.enabled = _canBeInteracted;
     }
 
 
@@ -95,6 +100,7 @@ public class Card : MonoBehaviour
     public void SetUnAvailable()
     {
         _background.color = Color.gray;
+        _button.enabled = false;
     }
 
 
@@ -103,8 +109,18 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetSelected()
     {
-        _active = true;
+        _activated = true;
+        Controller.Instance.PlayerController.LoadUnit(Unit);
         _background.color = Color.green;
+    }
+
+
+    /// <summary>
+    /// Method called to set a the card as selected.
+    /// </summary>
+    public void SetUnSelected()
+    {
+        _activated = false;
     }
 
 
