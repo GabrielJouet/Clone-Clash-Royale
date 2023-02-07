@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (_targetedEntity.gameObject.activeSelf)
+        if (_targetedEntity && _targetedEntity.gameObject.activeSelf)
             transform.position = Vector3.MoveTowards(transform.position, _targetedEntity.transform.position, _projectileSpeed * Time.deltaTime);
         else
             Controller.Instance.PoolController.In(gameObject);

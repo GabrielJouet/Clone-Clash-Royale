@@ -86,7 +86,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1857370990183852637}
+  - component: {fileID: 6756477043040322717}
+  - component: {fileID: 861390882947005259}
   - component: {fileID: 7049123262035774396}
+  - component: {fileID: 5804598801501026645}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -111,6 +114,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6756477043040322717
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857370990183852638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2.5, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &861390882947005259
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857370990183852638}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!114 &7049123262035774396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,10 +158,23 @@ MonoBehaviour:
   _health: 100
   _attackSpeed: 3
   _attackDamage: 4
-  _attackRange: 1
-  _seeRange: 1
   _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
+  _healthSlider: {fileID: 0}
   _enemy: 0
+--- !u!114 &5804598801501026645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857370990183852638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9029cde6c1f1e41894cb22b6c33c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followingPoint: {fileID: 0}
+  _previousPoint: {fileID: 0}
 --- !u!1 &4759586027078018789
 GameObject:
   m_ObjectHideFlags: 0

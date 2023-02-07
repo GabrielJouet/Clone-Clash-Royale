@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -58,6 +59,10 @@ public class Unit : Entity
     /// </summary>
     private Vector3 _goalPosition;
 
+    private Entity _goalUnit;
+
+    private Entity _attackedUnit;
+
     /// <summary>
     /// Does this unit can move?
     /// </summary>
@@ -90,7 +95,8 @@ public class Unit : Entity
     public void Initialize(Vector3 position, bool enemy)
     {
         Enemy = enemy;
-        _nextPoint = Controller.Instance.PointController.GetBetterPoint(position, Enemy);
+
+        _nextPoint = _ignoreOponents && _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
 
         _canMove = true;
@@ -104,15 +110,108 @@ public class Unit : Entity
     /// </summary>
     private void Update()
     {
-        if (_canMove)
+        if (_canMove && !_attackedUnit)
         {
-            _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalPosition, Time.deltaTime * _speed));
-
-            if ((transform.position - _goalPosition).magnitude <= 0.075f)
+            if (_goalUnit)
             {
-                _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
-                _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
+                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalUnit.transform.position, Time.deltaTime * _speed));
             }
+            else
+            {
+                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalPosition, Time.deltaTime * _speed));
+                
+                if ((transform.position - _goalPosition).magnitude <= 0.075f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
+                {
+                    _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
+                    _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
+                }
+            }
+        }
+
+        transform.position = _rigidBody.position;
+    }
+
+
+    /// <summary>
+    /// Coroutine used to delay each attack.
+    /// </summary>
+    private IEnumerator Attack()
+    {
+        do
+        {
+            yield return new WaitForSeconds(_attackSpeed);
+            RemoveDisactivatedUnits();
+
+            Controller.Instance.PoolController.Out(_projectile).GetComponent<Projectile>().Initialize(Enemy, _attackedUnit, _attackDamage, transform.position);
+        }
+        while (_attackedUnit && _attackedUnit.gameObject.activeSelf);
+    }
+
+
+    /// <summary>
+    /// Method called to add an entity when too near.
+    /// </summary>
+    /// <param name="entity">The new entity added</param>
+    public override void AddUnitSeen(Entity entity)
+    {
+        base.AddUnitSeen(entity);
+
+        if (_potentialTargets.Count > 0 && !_goalUnit)
+            _goalUnit = entity;
+    }
+
+
+    /// <summary>
+    /// Method called to add an entity when too near.
+    /// </summary>
+    /// <param name="entity">The new entity added</param>
+    public override void AddUnitAttacked(Entity entity)
+    {
+        base.AddUnitAttacked(entity);
+
+        if (_targets.Count > 0)
+        {
+            if (!_attackedUnit)
+            {
+                _attackedUnit = entity;
+                StartCoroutine(Attack());
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Method called to remove an entity when too far.
+    /// </summary>
+    /// <param name="entity">The new entity added</param>
+    public override void RemoveUnitSeen(Entity entity)
+    {
+        base.RemoveUnitSeen(entity);
+
+        if (_goalUnit == entity)
+        {
+            if (_potentialTargets.Count > 0)
+                _goalUnit = FindNearestUnit(_potentialTargets);
+            else
+                _goalUnit = null;
+        }
+    }
+
+
+    /// <summary>
+    /// Method called to remove an entity when too far to attack.
+    /// </summary>
+    /// <param name="entity">The new entity added</param>
+    public override void RemoveUnitAttacked(Entity entity)
+    {
+        base.RemoveUnitAttacked(entity);
+
+        if (_attackedUnit == entity)
+        {
+            if (_targets.Count > 0)
+                _attackedUnit = FindNearestUnit(_targets);
+            else
+                _attackedUnit = null;
         }
     }
 }

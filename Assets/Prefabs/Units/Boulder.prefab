@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 169455391936584222}
   - component: {fileID: 6307366109242570105}
-  - component: {fileID: 3135623232291467443}
   - component: {fileID: 8866568762326652202}
   m_Layer: 0
   m_Name: AttackCollider
@@ -47,22 +46,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3135623232291467443
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803375974626639990}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &8866568762326652202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +70,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3200343889139582036}
   - component: {fileID: 5233361954716408828}
-  - component: {fileID: 62663167262365946}
   - component: {fileID: 6689639050452847256}
   m_Layer: 0
   m_Name: VisionCollider
@@ -124,22 +106,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &62663167262365946
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661199701020088705}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &6689639050452847256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +166,8 @@ Rigidbody:
   m_GameObject: {fileID: 5931234390256999029}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -236,9 +202,7 @@ MonoBehaviour:
   _health: 45
   _attackSpeed: 0.25
   _attackDamage: 8
-  _attackRange: 0.5
-  _seeRange: 1
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 0.705
   _manaCost: 6
   _flying: 0

@@ -45,7 +45,7 @@ public class EnemyController : PlayableController
                 Vector3 position = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(3.5f, 8));
 
                 for (int i = 0; i < _nextUnit.SpawnedCount; i ++)
-                    Controller.Instance.PoolController.Out(_nextUnit.gameObject).GetComponent<Unit>().Initialize(position + new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f)), true);
+                    Controller.Instance.PoolController.Out(_nextUnit.gameObject).GetComponent<Unit>().Initialize(position + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)), true);
 
                 RemoveMana(_nextUnit.ManaCost);
                 _nextUnit = _units[Random.Range(0, _units.Count)];

@@ -46,8 +46,8 @@ Rigidbody:
   m_GameObject: {fileID: 5931234390256999029}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -82,9 +82,7 @@ MonoBehaviour:
   _health: 18
   _attackSpeed: 0.25
   _attackDamage: 10
-  _attackRange: 0.75
-  _seeRange: 1
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 1
   _manaCost: 5
   _flying: 0
@@ -183,7 +181,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4081007781382615709}
   - component: {fileID: 5739135426822698555}
-  - component: {fileID: 6636313524690420857}
   - component: {fileID: 1335102379567382863}
   m_Layer: 0
   m_Name: VisionCollider
@@ -220,22 +217,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6636313524690420857
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7289791236499672393}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1335102379567382863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +241,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8732875324449845062}
   - component: {fileID: 59581408101850134}
-  - component: {fileID: 7736365245083071553}
   - component: {fileID: 1185420212425247507}
   m_Layer: 0
   m_Name: AttackCollider
@@ -297,22 +277,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7736365245083071553
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8879068413758632575}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1185420212425247507
 MonoBehaviour:
   m_ObjectHideFlags: 0
