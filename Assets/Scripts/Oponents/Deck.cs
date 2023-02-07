@@ -14,6 +14,13 @@ public class Deck : MonoBehaviour
 
 
     /// <summary>
+    /// Last mana saved.
+    /// </summary>
+    private int _lastMana = 0;
+
+
+
+    /// <summary>
     /// Method called to initialize the deck based on new units.
     /// </summary>
     /// <param name="units">Units in the deck</param>
@@ -33,6 +40,8 @@ public class Deck : MonoBehaviour
     /// <param name="mana">How much mana is available</param>
     public void UpdateManaValue(int mana)
     {
+        _lastMana = mana;
+
         for (int i = 0; i < _cards.Count; i++)
             _cards[i].UpdateManaValue(mana);
     }
@@ -58,5 +67,16 @@ public class Deck : MonoBehaviour
     {
         for (int i = 0; i < _cards.Count; i++)
             _cards[i].SetUnSelected();
+    }
+
+
+    /// <summary>
+    /// Method called to swap two cards.
+    /// </summary>
+    /// <param name="baseUnit">The base card</param>
+    /// <param name="newUnit">The new card</param>
+    public void SwapCards(Unit baseUnit, Unit newUnit)
+    {
+        _cards.Find((x) => x.Unit == baseUnit).SetUnit(newUnit, _lastMana);
     }
 }

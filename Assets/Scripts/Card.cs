@@ -69,6 +69,21 @@ public class Card : MonoBehaviour
 
 
     /// <summary>
+    /// Method called to set an unit to a card.
+    /// </summary>
+    /// <param name="unit">The new unit</param>
+    /// <param name="mana">The mana value</param>
+    public void SetUnit(Unit unit, int mana)
+    {
+        Unit = unit;
+        _name.text = unit.name;
+        _cost.text = unit.ManaCost.ToString();
+
+        UpdateManaValue(mana);
+    }
+
+
+    /// <summary>
     /// Method called by controllers to update the mana value displayed.
     /// </summary>
     /// <param name="manaValue">The new mana value</param>

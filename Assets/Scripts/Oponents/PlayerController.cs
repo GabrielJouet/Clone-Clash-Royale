@@ -25,6 +25,9 @@ public class PlayerController : PlayableController
     private readonly List<Unit> _deckUnits = new List<Unit>();
 
 
+    /// <summary>
+    /// Unit actually selected and loaded in this controller.
+    /// </summary>
     private Unit _unitSelected;
 
 
@@ -65,6 +68,8 @@ public class PlayerController : PlayableController
                         SpawnUnit(_unitSelected, hit.point, false);
 
                         _deck.UnSelect();
+                        _deck.SwapCards(_unitSelected, FindOneUnit());
+                        _unitSelected = null;
                         _spawnZone.SetActive(false);
                     }
                 }
@@ -83,9 +88,33 @@ public class PlayerController : PlayableController
         _spawnZone.SetActive(true);
     }
 
+
+    /// <summary>
+    /// Method called to unload an unit.
+    /// </summary>
     public void UnLoadUnit()
     {
         _unitSelected = null;
         _spawnZone.SetActive(false);
+    }
+
+
+    /// <summary>
+    /// Method called to find one unit not present in the deck.
+    /// </summary>
+    /// <returns>Returns a non present unit in the deck</returns>
+    private Unit FindOneUnit()
+    {
+        _allUnits.Shuffle();
+
+        Unit unitBuffered = _allUnits[0];
+        int count = 0;
+        while (_deckUnits.Contains(unitBuffered))
+        {
+            count++;
+            unitBuffered = _allUnits[count];
+        }
+
+        return unitBuffered;
     }
 }
