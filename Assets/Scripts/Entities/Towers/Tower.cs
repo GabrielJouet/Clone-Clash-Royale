@@ -87,17 +87,14 @@ public class Tower : Entity
     {
         _isAttacking = true;
 
-        while (true)
+        do
         {
+            yield return new WaitForSeconds(_attackSpeed);
             RemoveDisactivatedUnits();
 
-            if (_targets.Count > 0)
-                Controller.Instance.PoolController.Out(_projectile).GetComponent<Projectile>().Initialize(Enemy, FindNearestUnit(_targets), _attackDamage, transform.position);
-            else
-                break;
-
-            yield return new WaitForSeconds(_attackSpeed);
+            Controller.Instance.PoolController.Out(_projectile).GetComponent<Projectile>().Initialize(Enemy, FindNearestUnit(_targets), _attackDamage, transform.position);
         }
+        while (_targets.Count > 0);
 
         _isAttacking = false;
     }

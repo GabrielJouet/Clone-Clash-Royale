@@ -137,7 +137,7 @@ public class Entity : MonoBehaviour
     {
         List<Entity> unitsToRemove = new List<Entity>();
         foreach (Entity unit in _targets)
-            if (unit || !unit.gameObject.activeSelf)
+            if (!unit || !unit.gameObject.activeSelf)
                 unitsToRemove.Add(unit);
 
         foreach (Entity unitToRemove in unitsToRemove)
@@ -146,7 +146,7 @@ public class Entity : MonoBehaviour
         unitsToRemove.Clear();
 
         foreach (Entity unit in _potentialTargets)
-            if (unit || !unit.gameObject.activeSelf)
+            if (!unit || !unit.gameObject.activeSelf)
                 unitsToRemove.Add(unit);
 
         foreach (Entity unitToRemove in unitsToRemove)
