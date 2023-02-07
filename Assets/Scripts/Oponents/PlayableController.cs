@@ -21,6 +21,35 @@ public abstract class PlayableController : MonoBehaviour
     protected TextMeshProUGUI _manaCaption;
 
 
+    [Header("Towers")]
+
+    /// <summary>
+    /// Left tower of this player.
+    /// </summary>
+    [SerializeField]
+    protected Tower _leftTower;
+
+    public Tower LeftTower { get => _leftTower; }
+
+
+    /// <summary>
+    /// Right tower of this player.
+    /// </summary>
+    [SerializeField]
+    protected Tower _rightTower;
+
+    public Tower RightTower { get => _rightTower; }
+
+
+    /// <summary>
+    /// Dungeon of this player.
+    /// </summary>
+    [SerializeField]
+    protected Tower _dungeon;
+
+    public Tower Dungeon { get => _dungeon; }
+
+
     /// <summary>
     /// How much the player / enemy has mana right now?
     /// </summary>

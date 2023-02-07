@@ -170,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9177211271101821966}
   - component: {fileID: 4164304294305135388}
+  - component: {fileID: 3707804906543939219}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -209,7 +210,21 @@ MonoBehaviour:
   _health: 75
   _attackSpeed: 2.5
   _attackDamage: 2
-  _attackRange: 1
-  _seeRange: 1
   _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
+  _point: {fileID: 0}
+  _healthSlider: {fileID: 0}
   _enemy: 0
+--- !u!114 &3707804906543939219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177211271101821961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9029cde6c1f1e41894cb22b6c33c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followingPoint: {fileID: 0}
+  _previousPoint: {fileID: 0}

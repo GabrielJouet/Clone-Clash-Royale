@@ -6,6 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Class used to handle tower related behavior.
 /// </summary>
+[RequireComponent(typeof(Point))]
 public class Tower : Entity
 {
     /// <summary>
@@ -19,6 +20,12 @@ public class Tower : Entity
     /// </summary>
     [SerializeField]
     private bool _enemy;
+
+
+    /// <summary>
+    /// Waypoint component in this tower.
+    /// </summary>
+    public Point Waypoint { get => GetComponent<Point>(); }
 
 
     /// <summary>
