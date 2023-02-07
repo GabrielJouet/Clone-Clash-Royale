@@ -131,14 +131,10 @@ public class Unit : Entity
     {
         if (_canMove && !_attackedUnit)
         {
-            if (_goalUnit)
+            _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalUnit ? _goalUnit.transform.position : _goalPosition, Time.deltaTime * _speed));
+
+            if (!_goalUnit)
             {
-                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalUnit.transform.position, Time.deltaTime * _speed));
-            }
-            else
-            {
-                _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalPosition, Time.deltaTime * _speed));
-                
                 if ((transform.position - _goalPosition).magnitude <= 0.2f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
                 {
                     _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
@@ -146,12 +142,12 @@ public class Unit : Entity
                 }
             }
 
-            if (!_goalUnit || !_goalUnit.gameObject.activeSelf)
-                _goalUnit = null;
+            if (_goalUnit && !_goalUnit.gameObject.activeSelf)
+                RemoveUnitSeen(_goalUnit);
         }
 
-        if (!_attackedUnit || !_attackedUnit.gameObject.activeSelf)
-            _attackedUnit = null;
+        if (_attackedUnit && !_attackedUnit.gameObject.activeSelf)
+            RemoveUnitAttacked(_attackedUnit);
 
         transform.position = _rigidBody.position;
     }
@@ -173,8 +169,6 @@ public class Unit : Entity
         }
         while (_attackedUnit && _attackedUnit.gameObject.activeSelf);
 
-        RemoveUnitSeen(_attackedUnit);
-        RemoveUnitAttacked(_attackedUnit);
         _isAttacking = false;
     }
 
