@@ -95,6 +95,8 @@ public class Unit : Entity
     public void Initialize(Vector3 position, bool enemy)
     {
         Enemy = enemy;
+        _attackedUnit = null;
+        _goalUnit = null;
 
         _nextPoint = _flying ? Controller.Instance.PointController.GetNearestTower(position, Enemy) : Controller.Instance.PointController.GetBetterPoint(position, Enemy);
         _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
@@ -145,6 +147,9 @@ public class Unit : Entity
             Controller.Instance.PoolController.Out(_projectile).GetComponent<Projectile>().Initialize(Enemy, _attackedUnit, _attackDamage, transform.position);
         }
         while (_attackedUnit && _attackedUnit.gameObject.activeSelf);
+
+        RemoveUnitSeen(_attackedUnit);
+        RemoveUnitAttacked(_attackedUnit);
     }
 
 
