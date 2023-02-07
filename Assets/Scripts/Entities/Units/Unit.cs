@@ -139,7 +139,7 @@ public class Unit : Entity
             {
                 _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _goalPosition, Time.deltaTime * _speed));
                 
-                if ((transform.position - _goalPosition).magnitude <= 0.075f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
+                if ((transform.position - _goalPosition).magnitude <= 0.2f && (Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint))
                 {
                     _nextPoint = Enemy ? _nextPoint.PreviousPoint : _nextPoint.NextPoint;
                     _goalPosition = new Vector3(_nextPoint.transform.position.x, transform.position.y, _nextPoint.transform.position.z);
