@@ -200,8 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 45
-  _attackSpeed: 0.25
-  _attackDamage: 8
+  _attackSpeed: 3
+  _attackDamage: 7
   _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 0.705
   _manaCost: 6

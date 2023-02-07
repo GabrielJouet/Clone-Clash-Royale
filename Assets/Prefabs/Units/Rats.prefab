@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 8
-  _attackSpeed: 1
+  _attackSpeed: 1.5
   _attackDamage: 2
   _projectile: {fileID: 9051846461916700688, guid: 8fe1ff6783926be47bb795491823ad7b, type: 3}
   _speed: 2
