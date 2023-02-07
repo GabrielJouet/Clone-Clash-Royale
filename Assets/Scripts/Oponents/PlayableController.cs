@@ -111,6 +111,8 @@ public abstract class PlayableController : MonoBehaviour
         Mana = Mathf.Clamp(Mana + amount, 0, 10);
         _manaSlider.value = Mana;
         _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
+
+        _deck.UpdateManaValue(Mathf.FloorToInt(Mana));
     }
 
 
