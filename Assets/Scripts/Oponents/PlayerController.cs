@@ -61,8 +61,8 @@ public class PlayerController : PlayableController
                 {
                     if (hit.transform.gameObject.name.Equals("SpawnZone"))
                     {
-                        Controller.Instance.PoolController.Out(_unitSelected.gameObject).GetComponent<Unit>().Initialize(hit.point, false);
-                        RemoveMana(_unitSelected.ManaCost);
+                        SpawnUnit(_unitSelected, hit.point, false);
+
                         _deck.UnSelect();
                         _spawnZone.SetActive(false);
                     }
@@ -78,7 +78,13 @@ public class PlayerController : PlayableController
     /// <param name="unit">The unit loaded</param>
     public void LoadUnit(Unit unit)
     {
-        _unitSelected = unit == _unitSelected ? null : unit;
-        _spawnZone.SetActive(_unitSelected);
+        _unitSelected = unit;
+        _spawnZone.SetActive(true);
+    }
+
+    public void UnLoadUnit()
+    {
+        _unitSelected = null;
+        _spawnZone.SetActive(false);
     }
 }

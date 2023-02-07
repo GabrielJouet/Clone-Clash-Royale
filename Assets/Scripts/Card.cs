@@ -109,18 +109,28 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetSelected()
     {
-        _activated = true;
-        Controller.Instance.PlayerController.LoadUnit(Unit);
-        _background.color = Color.green;
+        if (!_activated)
+        {
+            _activated = false;
+            Controller.Instance.PlayerController.LoadUnit(Unit);
+            _background.color = Color.green;
+        }
+        else
+        {
+            Controller.Instance.PlayerController.UnLoadUnit();
+            SetUnSelected();
+        }
     }
 
 
     /// <summary>
     /// Method called to set a the card as selected.
     /// </summary>
+    /// <param name="mana">Mana value to reset card</param>
     public void SetUnSelected()
     {
         _activated = false;
+        _background.color = _button.enabled ? Color.white : Color.gray;
     }
 
 

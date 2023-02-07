@@ -126,4 +126,19 @@ public abstract class PlayableController : MonoBehaviour
         _manaSlider.value = Mana;
         _manaCaption.text = Mathf.FloorToInt(Mana).ToString();
     }
+
+
+    /// <summary>
+    /// Method called to spawn unit based on unit choice and position.
+    /// </summary>
+    /// <param name="unit">Unit spawned</param>
+    /// <param name="position">Position of the new unit</param>
+    /// <param name="random">Does a bit of random is applied to position?</param>
+    protected void SpawnUnit(Unit unit, Vector3 position, bool random)
+    {
+        for (int i = 0; i < unit.SpawnedCount; i++)
+            Controller.Instance.PoolController.Out(unit.gameObject).GetComponent<Unit>().Initialize(position + (random ? new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)) : Vector3.zero ), random);
+
+        RemoveMana(unit.ManaCost);
+    }
 }
